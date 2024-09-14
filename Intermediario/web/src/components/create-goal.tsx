@@ -13,8 +13,20 @@ import {
   RadioGroupIndicator,
   RadioGroupItem,
 } from './ui/radio-group'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const createGoalForm = z.object({
+  title: z.string().min(1, 'Informa tua atividade ai'),
+  desiredWeeklyFrequenci: z.coerce.number().min(1).max(7),
+})
 
 export function CreateGoal() {
+  const { register } = useForm({
+    resolver: zodResolver(createGoalForm),
+  })
+
   return (
     <DialogContent>
       <div className="flex flex-col gap-6 h-full">
